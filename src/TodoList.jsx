@@ -9,18 +9,15 @@ class TodoList extends Component {
     const { todos, toggleTodo } = this.props;
 
     return (
-      <div className="todo-container">
-        <AddTodo />
-        <ul className="todo-list">
-          {todos.map(todo => (
-            <li key={todo.get('id')}
-                className='todo-item'
-                onClick={id => toggleTodo(todo.get('id'))}>
-              <Todo todo={todo} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="todo-list">
+        {todos.map(todo => (
+          <li key={todo.get('id')}
+              className='todo-item'
+              onClick={id => toggleTodo(todo.get('id'))}>
+            <Todo todo={todo} />
+          </li>
+        ))}
+      </ul>
     );
   }
 }
