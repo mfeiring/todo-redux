@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Todo from './Todo';
 import AddTodo from './AddTodo';
+import { toggleTodo } from './actions';
 
 class TodoList extends Component {
-
   render() {
-    const { todos } = this.props;
+    const { todos, toggleTodo } = this.props;
+
     return (
       <div className="todo-container">
         <AddTodo />
         <ul className="todo-list">
-          {todos.map(t => (
+          {todos.map(todo => (
             <li key={todo.get('id')}
-                className='todo-item'>
+                className='todo-item'
+                onClick={id => toggleTodo(todo.get('id'))}>
               <Todo todo={todo} />
             </li>
           ))}
@@ -27,5 +29,11 @@ function mapStateToProps(state) {
   return { todos: state };
 }
 
-export default connect(mapStateToProps)(TodoList);
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleTodo: id => dispatch(toggleTodo(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
