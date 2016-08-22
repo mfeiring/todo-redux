@@ -11,6 +11,12 @@ function todoReducer(state = dummyTodos, action) {
   switch(action.type) {
     case 'ADD_TODO':
       return state.push(Map(action.payload));
+    case 'TOGGLE_TODO':
+      return state.map(todo => (
+        todo.get('id') === action.payload ?
+        todo.update('isDone', isDone => !isDone) :
+        todo
+      ));
     default:
       return state;
   }
