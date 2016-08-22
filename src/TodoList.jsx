@@ -12,9 +12,9 @@ class TodoList extends Component {
         <AddTodo />
         <ul className="todo-list">
           {todos.map(t => (
-            <li key={t.id}
+            <li key={todo.get('id')}
                 className='todo-item'>
-              <Todo todo={t} />
+              <Todo todo={todo} />
             </li>
           ))}
         </ul>

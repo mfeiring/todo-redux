@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class Todo extends Component {
   render() {
     const { todo } = this.props;
-    if(todo.isDone) {
-      return <strike>{todo.text}</strike>;
+    if(todo.get('isDone')) {
+      return <strike>{todo.get('text')}</strike>;
     } else {
-      return <span>{todo.text}</span>;
+      return <span>{todo.get('text')}</span>;
     }
   }
 }
