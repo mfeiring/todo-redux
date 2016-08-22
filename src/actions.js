@@ -1,6 +1,12 @@
-export function addTodo(todo) {
+const uid = () => new Date().getTime();
+
+export function addTodo(text) {
   return { 
     type: 'ADD_TODO',
-    todo: todo
-  }
+    payload: {
+      id: uid(),
+      isDone: false,
+      text: text
+    }
+  };
 }
