@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import todoReducer from './reducer';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from './components/App';
 import { fetchTodos } from './actions';
 import thunk from 'redux-thunk';
 

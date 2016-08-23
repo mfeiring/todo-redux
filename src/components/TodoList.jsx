@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Todo from './Todo';
 import AddTodo from './AddTodo';
-import { toggleTodo } from './actions';
+import { toggleTodo } from '../actions';
 
 class TodoList extends Component {
   render() {
