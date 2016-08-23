@@ -4,8 +4,8 @@ const initialState = List([]);
 
 function todoReducer(state = initialState, action) {
   switch(action.type) {
-    case 'ADD_TODO':
-      return state.push(Map(action.payload));
+    case 'TODO_SUBMIT_SUCCEEDED':
+      return state.push(Map(action.res.body));
     case 'TOGGLE_TODO':
       return state.map(todo => (
         todo.get('id') === action.payload ?

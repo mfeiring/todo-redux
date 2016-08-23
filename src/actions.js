@@ -3,14 +3,23 @@ import request from 'superagent';
 const uid = () => new Date().getTime();
 
 export function addTodo(text) {
-  return { 
-    type: 'ADD_TODO',
-    payload: {
-      id: uid(),
-      isDone: false,
-      text: text
-    }
-  };
+  return dispatch => {
+    dispatch({ type: 'TODO_SUBMIT_STARTED' });
+    request
+      .post('/api/todos')
+      .send({
+        id: uid(),
+        isDone: false,
+        text: text
+      })
+      .end(function(err, res) {
+        if (err) {
+          dispatch({ type: 'TODO_SUBMIT_FAILED', err });
+        } else {
+          dispatch({ type: 'TODO_SUBMIT_SUCCEEDED', res });
+        }
+      });
+  }
 }
 
 export function toggleTodo(id) {
