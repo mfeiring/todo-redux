@@ -1,13 +1,8 @@
-import { List, Map } from 'immutable';
+import Immutable, { List, Map } from 'immutable';
 
-const dummyTodos = List([
-  Map({ id: 0, isDone: true,  text: 'dummy one' }),
-  Map({ id: 1, isDone: false, text: 'dummy two' }),
-  Map({ id: 2, isDone: false, text: 'dummy three' }),
-  Map({ id: 3, isDone: false, text: 'dummy four' })
-]);
+const initialState = List([]);
 
-function todoReducer(state = dummyTodos, action) {
+function todoReducer(state = initialState, action) {
   switch(action.type) {
     case 'ADD_TODO':
       return state.push(Map(action.payload));
@@ -17,6 +12,8 @@ function todoReducer(state = dummyTodos, action) {
         todo.update('isDone', isDone => !isDone) :
         todo
       ));
+    case 'TODO_REQUEST_SUCCEEDED':
+      return Immutable.fromJS(action.result.body);
     default:
       return state;
   }
