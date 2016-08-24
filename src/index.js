@@ -1,26 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
-import todoReducer from './reducer';
-import { Provider } from 'react-redux';
-import App from './components/App';
-import { fetchTodos } from './actions';
 import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import todoReducer from './reducer';
+import { fetchTodos } from './actions';
+import App from './components/App';
+import DevTools from './components/DevTools';
 
 const storeEnhancer = compose(
   applyMiddleware(
     thunk
   ),
-  window.devToolsExtension && window.devToolsExtension()
+  DevTools.instrument()
 );
 
-const store = createStore(todoReducer, storeEnhancer)
+const store = createStore(todoReducer, storeEnhancer);
 
 store.dispatch(fetchTodos());
 
 render(
   <Provider store={store}>
-    <App />
+    <div>
+      <App />
+      <DevTools />
+    </div>
   </Provider>,
   document.getElementById('app')
-)
+);
