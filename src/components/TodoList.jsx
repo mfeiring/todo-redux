@@ -13,7 +13,7 @@ class TodoList extends Component {
         {todos.map(todo => (
           <li key={todo.get('id')}
               className='todo-item'
-              onClick={id => toggleTodo(todo.get('id'))}>
+              onClick={id => toggleTodo(todo)}>
             <Todo todo={todo} />
           </li>
         ))}
@@ -34,3 +34,4 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
+// id: todo.get('id'), isDone: todo.get('isDone'), text: todo.get('text')

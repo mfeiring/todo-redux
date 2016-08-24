@@ -22,11 +22,24 @@ export function addTodo(text) {
   }
 }
 
-export function toggleTodo(id) {
-  return {
-    type: 'TOGGLE_TODO',
-    payload: id
-  };
+export function toggleTodo(todo) {
+  return dispatch => {
+    dispatch({ type: 'TOGGLE_TODO', payload: todo.get('id') });
+    request
+      .post('/api/todos')
+      .send({
+        id: todo.get('id'),
+        isDone: !todo.get('isDone'),
+        text: todo.get('text')
+      })
+      .end(function(err, res) {
+        if (err) {
+          dispatch({ type: 'TOGGLE_TODO_FAILED', err });
+        } else {
+          dispatch({ type: 'TOGGLE_TODO_SUCCEEDED', res});
+        }
+      });
+  }
 }
 
 export function fetchTodos() {
