@@ -36,7 +36,7 @@ export function toggleTodo(todo) {
         if (err) {
           dispatch({ type: 'TOGGLE_TODO_FAILED', err });
         } else {
-          dispatch({ type: 'TOGGLE_TODO_SUCCEEDED', res});
+          dispatch({ type: 'TOGGLE_TODO_SUCCEEDED', payload: todo.get('id'), res});
         }
       });
   }
@@ -45,7 +45,6 @@ export function toggleTodo(todo) {
 export function fetchTodos() {
   return dispatch => {
     dispatch({ type: 'TODO_REQUEST_STARTED' });
-
     request('/api/todos', function (err, result) {
       if (err) {
         dispatch({ type: 'TODO_REQUEST_FAILED', err });
@@ -53,5 +52,20 @@ export function fetchTodos() {
         dispatch({ type: 'TODO_REQUEST_SUCCEEDED', result });
       }
     })
+  }
+}
+
+export function deleteTodo(id) {
+  return dispatch => {
+    dispatch({ type: 'DELETING_TODO', payload: id });
+    request
+      .del(`/api/todos/${id}`)
+      .end(function(err, res) {
+        if (err) {
+          dispatch({ type: 'TODO_DELETION_FAILED', err });
+        } else {
+          dispatch({ type: 'TODO_DELETION_SUCCEEDED', payload: id, res });
+        }
+      })
   }
 }

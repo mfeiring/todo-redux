@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Todo from './Todo';
 import AddTodo from './AddTodo';
-import { toggleTodo } from '../actions';
+import { toggleTodo, deleteTodo } from '../actions';
 
 class TodoList extends Component {
   render() {
-    const { todos, toggleTodo } = this.props;
-
+    const { todos, toggleTodo, deleteTodo } = this.props;
     return (
       <ul className="todo-list">
         {todos.map(todo => (
-          <li key={todo.get('id')}
-              className='todo-item'
-              onClick={id => toggleTodo(todo)}>
+          <li key={todo.get('id')} className='todo-item'>
             <Todo todo={todo} />
-          </li>
+            <i className="fa fa-check fa-lg" 
+               aria-hidden="true"
+               onClick={ () => toggleTodo(todo) }>
+            </i>
+            <i className="fa fa-trash fa-lg"
+               aria-hidden="true"
+               onClick={ id => deleteTodo(todo.get('id')) }>
+            </i>
+          </li> 
         ))}
       </ul>
     );
@@ -28,7 +33,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleTodo: id => dispatch(toggleTodo(id))
+    toggleTodo: todo => dispatch(toggleTodo(todo)),
+    deleteTodo: id => dispatch(deleteTodo(id))
   }
 }
 
